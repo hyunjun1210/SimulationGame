@@ -1,10 +1,8 @@
 using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
-using UnityEngine.WSA;
 
 public enum MapType
 {
@@ -14,15 +12,12 @@ public enum MapType
 
 public class MapManager : MonoBehaviour
 {
-    [SerializeField] Tilemap tile;
+    const string PATH = "MapData/";
     [SerializeField] TileBase[] tileBase;
     [SerializeField] GameObject unit;
 
     public Vector2 minCamera;
     public Vector2 maxCamera;
-
-    public Vector2 minUnit;
-    public Vector2 maxUnit;
 
     static public MapManager Instance
     {
@@ -42,25 +37,52 @@ public class MapManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    public void SceneLoad(int sceneCount, string path)
+
+    public void LoadMap(Tilemap tile, string path, int id)
     {
-        SceneManager.LoadScene(sceneCount);
-        tile.RefreshAllTiles();
-        TextAsset text = Resources.Load<TextAsset>(path);
+        TextAsset text = Resources.Load<TextAsset>(PATH + path);
         string[] map = text.text.Split('\n');
 
         int x = int.Parse(map[0]);
         int y = int.Parse(map[1]);
 
-        int width = (int)(Camera.main.orthographicSize * Camera.main.aspect);
-        int height = (int)Camera.main.orthographicSize;
 
-        Vector3 worldPos = new Vector3(
-            Mathf.Ceil(Camera.main.transform.position.x - width),
-             Mathf.Ceil(Camera.main.transform.position.y + height),
-            0
-        );
-        Vector3Int startCell = tile.WorldToCell(worldPos);
+        for (int i = 2; i < y + 2; i++)
+        {
+            for (int j = 0; j < x; j++)
+            {
+                string line = map[i][j].ToString();
+                if (int.TryParse(line, out int result))
+                {
+                    if (result != id)
+                    {
+                        continue;
+                    }
+                    if (id == 3)
+                    {
+                        var obj = Instantiate(unit, transform);
+                        obj.transform.position = new Vector3Int(j, -(i - 2), 0);
+                        continue;
+                    }
+                    print(result);
+                    tile.SetTile(new Vector3Int(j, -(i - 2), 0), tileBase[result]);
+                }
+            }
+        }
+        Camera camera = Camera.main;
+        float height = camera.orthographicSize;
+        float width = height * camera.aspect;
+        minCamera = new Vector2(width, -y + height);
+        maxCamera = new Vector2(x - width, -height);
+    }
+
+    public void LoadMap(Tilemap tile, string path)
+    {
+        TextAsset text = Resources.Load<TextAsset>(PATH + path);
+        string[] map = text.text.Split('\n');
+
+        int x = int.Parse(map[0]);
+        int y = int.Parse(map[1]);
 
 
         for (int i = 2; i < y + 2; i++)
@@ -72,25 +94,32 @@ public class MapManager : MonoBehaviour
                 {
                     if (result == 3)
                     {
-                        Instantiate(unit, transform);
+                        var obj = Instantiate(unit, transform);
+                        obj.transform.position = tile.CellToWorld(new Vector3Int(j, -(i - 2), 0));
                         continue;
                     }
                     print(result);
-                    tile.SetTile(new Vector3Int(startCell.x + j - 1,startCell.y - i - 1 , 0), tileBase[result]);
+                    tile.SetTile(new Vector3Int(j, -(i - 2), 0), tileBase[result]);
                 }
             }
         }
-        worldPos = tile.CellToWorld(startCell);
-       //나중에 크기 문제 생기면 변경
-       float mapTopY = worldPos.y - 2;
-       minCamera.x = worldPos.x + width;
-       maxCamera.x = worldPos.x + x  - width - 2;
-       minCamera.y = (mapTopY - y) + height;
-       maxCamera.y = mapTopY - height;
+        Camera camera = Camera.main;
+        float height = camera.orthographicSize;
+        float width = height * camera.aspect;
+        minCamera = new Vector2(width, -y + height);
+        maxCamera = new Vector2(x - width, -height);
+    }
 
-        minUnit.x = worldPos.x;
-        maxUnit.x = worldPos.x + x;
-        minUnit.y = mapTopY - y;
-        maxUnit.y = mapTopY;
+    public void SceneLoad(int sceneCount)
+    {
+        StartCoroutine(OnSceneLoader(sceneCount));
+    }
+    public IEnumerator OnSceneLoader(int sceneCount)
+    {
+        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneCount);
+        while (!operation.isDone)
+        {
+            yield return null;
+        }
     }
 }
