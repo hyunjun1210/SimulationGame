@@ -10,7 +10,7 @@ public class Archer : UnitScriptable
     public float maxHp;
     public float hp;
 
-    public override void Initialize(Unit unit)
+    public override void Initialize(UnitController unit)
     {
         unit.spriteRenderer.sprite = sprite;
     }

@@ -9,5 +9,5 @@ public enum UnitClassType
 
 public abstract class UnitSkillScriptable : ScriptableObject
 {
-    public abstract void Activity(Unit unit);
+    public abstract void Activity(UnitController unit);
 }

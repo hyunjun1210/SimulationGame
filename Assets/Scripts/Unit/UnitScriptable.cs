@@ -4,5 +4,5 @@ using UnityEngine;
 
 public abstract class UnitScriptable : ScriptableObject
 {
-    public abstract void Initialize(Unit unit);
+    public abstract void Initialize(UnitController unit);
 }

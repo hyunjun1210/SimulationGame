@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Unit : MonoBehaviour
+public class UnitController  : MonoBehaviour
 {
     public UnitScriptable unit;
     public UnitSkillScriptable skill;
     public SpriteRenderer spriteRenderer;
+
 
     private void Start()
     {
