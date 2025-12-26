@@ -842,7 +842,7 @@ GameObject:
   - component: {fileID: 499843068}
   - component: {fileID: 499843067}
   m_Layer: 5
-  m_Name: Knight
+  m_Name: Warrior
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -914,7 +914,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 499843068}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1689960129}
+        m_TargetAssemblyTypeName: SelectClass, Assembly-CSharp
+        m_MethodName: Warrior
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &499843068
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1256,7 +1268,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -467}
+  m_AnchoredPosition: {x: 0, y: 425}
   m_SizeDelta: {x: 1085.968, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &520567297
@@ -2140,6 +2152,7 @@ GameObject:
   - component: {fileID: 1689960127}
   - component: {fileID: 1689960126}
   - component: {fileID: 1689960125}
+  - component: {fileID: 1689960129}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -2231,6 +2244,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1689960129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1689960124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8190991585f1fe245b458003505817d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  archer: {fileID: 11400000, guid: c1b01e4f85906214081b15a544c87fdc, type: 2}
+  warrior: {fileID: 11400000, guid: 427b9ea76e2a27045a65f2bd9ff38513, type: 2}
+  mage: {fileID: 11400000, guid: e2f409b736bc8224ab4e40821bc3bb19, type: 2}
 --- !u!1 &1716806686
 GameObject:
   m_ObjectHideFlags: 0
@@ -2316,7 +2344,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1716806689}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1689960129}
+        m_TargetAssemblyTypeName: SelectClass, Assembly-CSharp
+        m_MethodName: Mage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1716806689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2563,7 +2603,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Knight
+  m_text: Warrior
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: bdbfa136d5f822b49bb949dcf8d2b3d3, type: 2}
   m_sharedMaterial: {fileID: -1736383187681138261, guid: bdbfa136d5f822b49bb949dcf8d2b3d3, type: 2}
@@ -2725,7 +2765,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1985628451}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1689960129}
+        m_TargetAssemblyTypeName: SelectClass, Assembly-CSharp
+        m_MethodName: Archer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1985628451
 MonoBehaviour:
   m_ObjectHideFlags: 0

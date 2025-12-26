@@ -2,17 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Warrior : MonoBehaviour
+[CreateAssetMenu(fileName = "Warrior", menuName = "Unit/Warrior")]
+public class Warrior : UnitScriptable
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Sprite sprite;
+    public int level;
+    public float maxHp;
+    public float hp;
 
-    // Update is called once per frame
-    void Update()
+    public override void Initialize(UnitController unit)
     {
-        
+        unit.spriteRenderer.sprite = sprite;
     }
 }

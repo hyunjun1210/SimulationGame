@@ -6,6 +6,7 @@ public class UnitManager : MonoBehaviour
 {
 
     public UnitClassType unitClassType;
+    public UnitScriptable unit;
     static public UnitManager Instance
     {
         get;
