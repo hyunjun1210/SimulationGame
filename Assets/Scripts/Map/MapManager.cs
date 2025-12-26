@@ -16,9 +16,13 @@ public class MapManager : MonoBehaviour
 {
     [SerializeField] Tilemap tile;
     [SerializeField] TileBase[] tileBase;
+    [SerializeField] GameObject unit;
 
-    public Vector2 min;
-    public Vector2 max;
+    public Vector2 minCamera;
+    public Vector2 maxCamera;
+
+    public Vector2 minUnit;
+    public Vector2 maxUnit;
 
     static public MapManager Instance
     {
@@ -66,6 +70,11 @@ public class MapManager : MonoBehaviour
                 string line = map[i][j].ToString();
                 if (int.TryParse(line, out int result))
                 {
+                    if (result == 3)
+                    {
+                        Instantiate(unit, transform);
+                        continue;
+                    }
                     print(result);
                     tile.SetTile(new Vector3Int(startCell.x + j - 1,startCell.y - i - 1 , 0), tileBase[result]);
                 }
@@ -74,9 +83,14 @@ public class MapManager : MonoBehaviour
         worldPos = tile.CellToWorld(startCell);
        //나중에 크기 문제 생기면 변경
        float mapTopY = worldPos.y - 2;
-       min.x = worldPos.x + width;
-       max.x = worldPos.x + x  - width - 2;
-       min.y = (mapTopY - y) + height;
-       max.y = mapTopY - height;
+       minCamera.x = worldPos.x + width;
+       maxCamera.x = worldPos.x + x  - width - 2;
+       minCamera.y = (mapTopY - y) + height;
+       maxCamera.y = mapTopY - height;
+
+        minUnit.x = worldPos.x;
+        maxUnit.x = worldPos.x + x;
+        minUnit.y = mapTopY - y;
+        maxUnit.y = mapTopY;
     }
 }
